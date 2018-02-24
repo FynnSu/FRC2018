@@ -23,24 +23,24 @@ RobotControl
 DriveTrain
     Controls the main robot drivetrain. Contains instantiated drivetrain motors (VictorSp) and methods to control them
     Important Methods:
-        * setSpeed: sets drivetrain motor speeds. Requres: leftSpeed, rightSpeed doubles
-        * setSpeedAndTurn: calculates leftSpeed and rightSpeed, then calls setSpeed() with values. Requires: speed, turn doubles
-        * update: prints current motor speeds to SmartDashboard
+        - setSpeed: sets drivetrain motor speeds. Requres: leftSpeed, rightSpeed doubles
+        - setSpeedAndTurn: calculates leftSpeed and rightSpeed, then calls setSpeed() with values. Requires: speed, turn doubles
+        - update: prints current motor speeds to SmartDashboard
 
 Intake
     Controls the Claw Intake System. Contains instantiated claw motors (Spark) and methods to control them
     Important Methods:
-        * setSpeed: sets claw motor speeds. Requres: leftSpeed, rightSpeed doubles
-        * setSpeedAndTurn: calculates leftSpeed and rightSpeed, then calls setSpeed() with values. Requires: speed, turn doubles
-        * stop: stops motors
-        * update: prints current motor speeds to SmartDashboard
+        - setSpeed: sets claw motor speeds. Requres: leftSpeed, rightSpeed doubles
+        - setSpeedAndTurn: calculates leftSpeed and rightSpeed, then calls setSpeed() with values. Requires: speed, turn doubles
+        - stop: stops motors
+        - update: prints current motor speeds to SmartDashboard
 
 Elevator
     Controls the Up/Down Elevator that carries claw. Containts instantiated elevator motor (Spark) and methods to control it
     Important Methods:
-        * setSpeed: sets elevator motor speed. Requires speed double
-        * stop: stops motor
-        * update: prints current motor speed to SmartDashboard
+        - setSpeed: sets elevator motor speed. Requires speed double
+        - stop: stops motor
+        - update: prints current motor speed to SmartDashboard
         
   
   
