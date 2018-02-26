@@ -15,6 +15,7 @@ public class RobotControl extends Subsystem {
 	public DriveTrain drive;
 	public Intake intake;
 	public Elevator elevator;
+	public Climber climber;
 	public F_Gyro gyro;
 	public F_Ultrasonic ultrasonic;
 	
@@ -22,6 +23,7 @@ public class RobotControl extends Subsystem {
 		drive = new DriveTrain();
 		intake = new Intake();
 		elevator = new Elevator();
+		climber = new Climber();
 		gyro = new F_Gyro();
 		ultrasonic = new F_Ultrasonic(RobotConst.ULTRASONIC_ANALOG_INPUT_PORT);
 		ultrasonic.calibrate(RobotConst.ULTRASONIC_20_INCHES_VOLTAGE, RobotConst.ULTRASONIC_40_INCHES_VOLTAGE, RobotConst.ULTRASONIC_80_INCHES_VOLTAGE);
@@ -31,6 +33,7 @@ public class RobotControl extends Subsystem {
 		drive.update();
 		intake.update();
 		elevator.update();
+		climber.update();
 		gyro.update();
 		ultrasonic.update();
 		//TODO Test SmartDashboard Subsystem Display

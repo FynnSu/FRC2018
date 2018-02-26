@@ -80,6 +80,9 @@ public class OI {
 	//Operator Joystick Button Ports
 	private static final int BUTTON_OPERATOR_CANCEL_PORT = 3;
 	private static final int BUTTON_RESET_PORT = 4;
+	private static final int BUTTON_CLIMBER_UP_PORT = 1;
+	private static final int BUTTON_CLIMBER_DOWN_PORT = 2;
+	
 	
 	//Driver Joystick Button Ports
 	private static final int BUTTON_DRIVER_CANCEL_PORT = 7;
@@ -103,6 +106,8 @@ public class OI {
 	//Operator Joystick Buttons
 	private JoystickButton operatorCancel 				= new JoystickButton(operator, BUTTON_OPERATOR_CANCEL_PORT);
 	private JoystickButton reset						= new JoystickButton(operator, BUTTON_RESET_PORT);
+	private JoystickButton climberUp 					= new JoystickButton(operator, BUTTON_CLIMBER_UP_PORT);
+	private JoystickButton climberDown 					= new JoystickButton(operator, BUTTON_CLIMBER_DOWN_PORT);
 	
 	//Driver Joystick Buttons
 	private JoystickButton driverCancel 				= new JoystickButton(driver, BUTTON_DRIVER_CANCEL_PORT);
@@ -116,6 +121,8 @@ public class OI {
 		//Operator Buttons
 		operatorCancel.whenPressed(new CancelCommand());
 		reset.whenPressed(new ResetCommand());
+		climberUp.whileHeld(new ClimberUpCommand());
+		climberDown.whileHeld(new ClimberDownCommand());
 		
 		//Driver Buttons
 		driverCancel.whenPressed(new CancelCommand());

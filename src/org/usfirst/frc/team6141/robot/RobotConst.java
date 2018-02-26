@@ -14,12 +14,10 @@ public class RobotConst {
 	public static final int LEFT_MOTOR_TWO_PWM_PORT = 1;
 	public static final int RIGHT_MOTOR_ONE_PWM_PORT = 2;
 	public static final int RIGHT_MOTOR_TWO_PWM_PORT = 3;
-	public static final int CLIMER_MOTOR_PWM_PORT = 4;
+	public static final int CLIMBER_MOTOR_PWM_PORT = 4;
 	public static final int ELEVATOR_MOTOR_PWM_PORT = 5;
 	public static final int LEFT_INTAKE_MOTOR_PWM_PORT = 6;
 	public static final int RIGHT_INTAKE_MOTOR_PWM_PORT = 7;
-	public static final int SHOOTER_MOTOR_PWM_PORT = 4;
-	public static final int INTAKE_MOTOR_PWM_PORT = 5;
 	
 	//Analog Input Ports
 	public static final int ULTRASONIC_ANALOG_INPUT_PORT = 0;

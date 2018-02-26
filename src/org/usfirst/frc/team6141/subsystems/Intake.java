@@ -16,8 +16,8 @@ public class Intake extends Subsystem {
 	private Spark rightMotor;
 	
 	public Intake() {
-		leftMotor = new Spark (RobotConst.INTAKE_MOTOR_PWM_PORT);
-		rightMotor = new Spark(RobotConst.INTAKE_MOTOR_PWM_PORT);
+		leftMotor = new Spark (RobotConst.LEFT_INTAKE_MOTOR_PWM_PORT);
+		rightMotor = new Spark(RobotConst.RIGHT_INTAKE_MOTOR_PWM_PORT);
 	}
 
 	public void setSpeed(double leftIntake, double rightIntake) {
