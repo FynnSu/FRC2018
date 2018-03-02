@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team6141.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -29,7 +32,9 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	public static RobotControl control = new RobotControl();
 	SendableChooser<AutoMode> m_chooser = new SendableChooser<AutoMode>();
-
+	
+	
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -43,9 +48,17 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Left Gear", AutoMode.LEFT_GEAR);
 		m_chooser.addObject("Right Gear", AutoMode.RIGHT_GEAR);
 
+		new Thread(() -> {
+			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+			camera.setResolution(640, 480);
+			camera.setFPS(30);
+		}).start();
+		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		update();
+		
+		
 	}
 
 	/**
@@ -61,6 +74,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		update();
 	}
 
 	/**
@@ -76,6 +90,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		DriverStation station = DriverStation.getInstance();
+		String data = station.getGameSpecificMessage();
 		m_autonomousCommand = new AutonomousCommand(m_chooser.getSelected());
 
 		/*
