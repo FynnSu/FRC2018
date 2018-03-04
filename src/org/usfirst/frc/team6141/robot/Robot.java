@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team6141.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -15,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6141.commands.AutonomousCommand;
 import org.usfirst.frc.team6141.misc.AutoMode;
+import org.usfirst.frc.team6141.misc.GameData;
 import org.usfirst.frc.team6141.subsystems.RobotControl;
 
 /**
@@ -29,7 +33,9 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	public static RobotControl control = new RobotControl();
 	SendableChooser<AutoMode> m_chooser = new SendableChooser<AutoMode>();
-
+	
+	
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -37,15 +43,21 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		m_chooser.addDefault("Cross Line Backward", AutoMode.BACKWARD_CROSS_LINE);
-		m_chooser.addObject("Cross Line Forward", AutoMode.FORWARD_CROSS_LINE);
-		m_chooser.addObject("Center Gear", AutoMode.CENTER_GEAR);
-		m_chooser.addObject("Left Gear", AutoMode.LEFT_GEAR);
-		m_chooser.addObject("Right Gear", AutoMode.RIGHT_GEAR);
+		m_chooser.addObject("Cross Line Forward", AutoMode.CROSS_LINE);
+		m_chooser.addObject("Switch", AutoMode.SWITCH);
+		m_chooser.addObject("Scale", AutoMode.SCALE);
 
+		new Thread(() -> {
+			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+			camera.setResolution(640, 480);
+			camera.setFPS(30);
+		}).start();
+		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		update();
+		
+		
 	}
 
 	/**
@@ -61,6 +73,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		update();
 	}
 
 	/**
@@ -76,7 +89,9 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = new AutonomousCommand(m_chooser.getSelected());
+		DriverStation station = DriverStation.getInstance();
+		GameData data = new GameData(station);
+		m_autonomousCommand = new AutonomousCommand(m_chooser.getSelected(), data);
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

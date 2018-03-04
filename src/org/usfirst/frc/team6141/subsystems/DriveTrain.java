@@ -36,8 +36,8 @@ public class DriveTrain extends Subsystem {
     }
     
     public void setSpeedAndTurn(double speed, double turn) {
-    	double leftSpeed = speed + turn;
-		double rightSpeed = -speed + turn;
+    	double leftSpeed = -speed + turn;
+		double rightSpeed = speed + turn;
 		
 		if (leftSpeed > 1.0) leftSpeed = 1.0;
 		if (leftSpeed < -1.0) leftSpeed = -1.0;
