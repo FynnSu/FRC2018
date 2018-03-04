@@ -18,7 +18,7 @@ public class ClimberUpCommand extends Command {
 
     // Called once when the command executes
     protected void initialize() {
-    	Robot.control.climber.setSpeed(1);
+    	Robot.control.climber.setSpeed(0.5);
     }
 
     protected void end() {

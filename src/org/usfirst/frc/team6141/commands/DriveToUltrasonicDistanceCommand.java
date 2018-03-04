@@ -9,16 +9,18 @@ public class DriveToUltrasonicDistanceCommand extends DriveOnHeadingCommand {
 	
 	private double distanceInMeters;
 	private final double MAX_SPEED = 0.4;
+	private double time;
 
-    public DriveToUltrasonicDistanceCommand(double heading, double speed, double distanceMeters) {
+    public DriveToUltrasonicDistanceCommand(double heading, double speed, double distanceMeters, double maxTime) {
     	super(heading, speed);
     	requires(Robot.control.drive);
     	distanceInMeters = distanceMeters;
+    	time = maxTime;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
+    	setTimeout(time);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -39,6 +41,6 @@ public class DriveToUltrasonicDistanceCommand extends DriveOnHeadingCommand {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	double displacement = Robot.control.ultrasonic.getDisplacement(distanceInMeters);
-        return (Math.abs(displacement) <= 0.1);
+        return (Math.abs(displacement) <= 0.1) || isTimedOut();
     }
 }

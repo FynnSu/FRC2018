@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6141.commands.AutonomousCommand;
 import org.usfirst.frc.team6141.misc.AutoMode;
+import org.usfirst.frc.team6141.misc.GameData;
 import org.usfirst.frc.team6141.subsystems.RobotControl;
 
 /**
@@ -42,11 +43,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		m_chooser.addDefault("Cross Line Backward", AutoMode.BACKWARD_CROSS_LINE);
-		m_chooser.addObject("Cross Line Forward", AutoMode.FORWARD_CROSS_LINE);
-		m_chooser.addObject("Center Gear", AutoMode.CENTER_GEAR);
-		m_chooser.addObject("Left Gear", AutoMode.LEFT_GEAR);
-		m_chooser.addObject("Right Gear", AutoMode.RIGHT_GEAR);
+		m_chooser.addObject("Cross Line Forward", AutoMode.CROSS_LINE);
+		m_chooser.addObject("Switch", AutoMode.SWITCH);
+		m_chooser.addObject("Scale", AutoMode.SCALE);
 
 		new Thread(() -> {
 			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
@@ -91,8 +90,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		DriverStation station = DriverStation.getInstance();
-		String data = station.getGameSpecificMessage();
-		m_autonomousCommand = new AutonomousCommand(m_chooser.getSelected());
+		GameData data = new GameData(station);
+		m_autonomousCommand = new AutonomousCommand(m_chooser.getSelected(), data);
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
